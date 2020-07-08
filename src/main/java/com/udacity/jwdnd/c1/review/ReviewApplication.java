@@ -1,14 +1,11 @@
 package com.udacity.jwdnd.c1.review;
 
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.udacity.jwdnd.c1.review.service.MessageService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @SpringBootApplication
 @Configuration
@@ -24,7 +21,7 @@ public class ReviewApplication {
 		return "Hello, Spring";
 	}
 
-	@Bean
+/*	@Bean
 	public String uppercaseMessage(MessageService messageService) {
 		String upper = messageService.upperCase();
 		System.out.println(upper);
@@ -36,5 +33,5 @@ public class ReviewApplication {
 		String lower = messageService.lowerCase();
 		System.out.println(lower);
 		return lower;
-	}
+	}*/
 }
