@@ -1,3 +1,9 @@
+
+<form th:object="${newMessage}" th:action="@{/home}" action="#" method="post">
+    <input th:field="*{text}" type="text">
+    <input type="submit">
+</form>
+
 <h1 th:each="msg: ${greetings}" th:text="${msg}"
     th:unless="${msg.contains('bonjour') }"
 >yo</h1>
