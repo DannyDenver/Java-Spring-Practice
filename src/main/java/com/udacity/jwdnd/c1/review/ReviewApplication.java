@@ -32,26 +32,9 @@ public class ReviewApplication {
 	}
 
 	@Bean
-	public String lowercaseMessage(MessageService messageService){
+	public String lowercaseMessage(MessageService messageService) {
 		String lower = messageService.lowerCase();
 		System.out.println(lower);
 		return lower;
-	}
-
-
-	@Service
-	public class MessageService {
-		private String message;
-		public MessageService(String message) {
-			this.message = message;
-		}
-
-		public String upperCase() {
-			return message.toUpperCase();
-		}
-
-		public String lowerCase() {
-			return message.toLowerCase();
-		}
 	}
 }
