@@ -1,5 +1,6 @@
 package com.udacity.jwdnd.c1.review.service;
 
+import com.udacity.jwdnd.c1.review.mapper.MessageMapper;
 import com.udacity.jwdnd.c1.review.model.ChatForm;
 import com.udacity.jwdnd.c1.review.model.ChatMessage;
 import org.springframework.stereotype.Service;
@@ -10,27 +11,12 @@ import java.util.List;
 
 @Service
 public class MessageService {
-/*
-    private String message;
-*/
-    private List<ChatMessage> chatMessages;
-/*
-    public MessageService(String message) {
-        this.message = message;
-    }
 
-    public String upperCase() {
-        return message.toUpperCase();
-    }
+    private final MessageMapper messageMapper;
 
-    public String lowerCase() {
-        return message.toLowerCase();
-    }*/
-
-    @PostConstruct
-    public void postConstruct() {
+    public MessageService(MessageMapper messageMapper) {
         System.out.println("Creating MessageService bean");
-        this.chatMessages = new ArrayList<>();
+        this.messageMapper = messageMapper;
     }
 
     public void addMessage(ChatForm chatForm) {
@@ -38,20 +24,19 @@ public class MessageService {
         newMessage.setUsername(chatForm.getUsername());
         switch (chatForm.getMessageType()) {
             case "Say":
-                newMessage.setMessage(chatForm.getMessageText());
+                newMessage.setMessagetext(chatForm.getMessageText());
                 break;
             case "Shout":
-                newMessage.setMessage(chatForm.getMessageText().toUpperCase());
+                newMessage.setMessagetext(chatForm.getMessageText().toUpperCase());
                 break;
             case "Whisper":
-                newMessage.setMessage(chatForm.getMessageText().toLowerCase());
+                newMessage.setMessagetext(chatForm.getMessageText().toLowerCase());
                 break;
         }
-        this.chatMessages.add(newMessage);
+        messageMapper.insert(newMessage);
     }
 
-
     public List<ChatMessage> getChatMessages() {
-        return chatMessages;
+        return messageMapper.getMessages();
     }
 }

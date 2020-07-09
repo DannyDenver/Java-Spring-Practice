@@ -2,6 +2,8 @@ package com.udacity.jwdnd.c1.review.controller;
 
 import com.udacity.jwdnd.c1.review.service.MessageService;
 import com.udacity.jwdnd.c1.review.model.ChatForm;
+import com.udacity.jwdnd.c1.review.service.UserService;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/chat")
 public class ChatController {
 
-    private MessageService messageService;
+    private final MessageService messageService;
+    private final UserService userService;
 
-    public ChatController(MessageService messageService) {
+    public ChatController(MessageService messageService, UserService userService) {
         this.messageService = messageService;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -26,10 +30,11 @@ public class ChatController {
     }
 
     @PostMapping
-    public String postChatMessage(ChatForm chatForm, Model model) {
-        this.messageService.addMessage(chatForm);
+    public String postChatMessage(Authentication authentication, ChatForm chatForm, Model model) {
+        chatForm.setUsername(authentication.getName());
+        messageService.addMessage(chatForm);
         chatForm.setMessageText("");
-        model.addAttribute("chatMessages", this.messageService.getChatMessages());
+        model.addAttribute("chatMessages", messageService.getChatMessages());
         return "chat";
     }
 

@@ -8,17 +8,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @SpringBootApplication
-@Configuration
-@EnableAutoConfiguration
 public class ReviewApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ReviewApplication.class, args);
-	}
-
-	@Bean
-	public String message() {
-		return "Hello, Spring";
 	}
 
 /*	@Bean
